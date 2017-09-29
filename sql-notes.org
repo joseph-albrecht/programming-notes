@@ -1,0 +1,84 @@
+
+
+* Keywords
+** SELECT
+** FROM
+** WHERE
+** GROUP BY
+** ORDER BY
+
+** Postgress
+*** LIMIT
+* Data Types
+** serial
+This is not a true datatype, rather its notational convenience. 
+** varchar
+** smallint
+** integer
+** numeric
+* Vocabulary
+** Schema
+Any information about the database and what is in there is called a schema.
+** Key
+*** 
+* Database Forms
+** First Normal Form
+** Second Normal Form
+** Third Normal Form
+* Naming conventions
+** Columns
+Typically columns are written as snake_case:
+my_column_name
+** Constraints
+*** Names
+The naming of the constraints is similar to the naming of a junit test
+*** Foreign Key
+#+BEGIN_SRC sql
+  CONSTRAINT fk_table_col_other_table_other_col FOREIGN KEY (col) REFERENCES other_table(other_col)
+#+END_SRC
+*** Primary Key
+#+BEGIN_SRC sql
+  CONSTRAINT pk_table_column PRIMARY KEY (column)
+#+END_SRC
+* Manipulating Databases
+** Making a database
+#+BEGIN_SRC sql
+  CREATE DATABASE name;
+#+END_SRC
+** Deleting a database
+#+BEGIN_SRC sql
+  DROP DATABASE name;
+#+END_SRC
+** Creating a Table
+#+BEGIN_SRC sql
+  CREATE TABLE table_name(
+         col1 data_type,
+         col2 data_type NOT NULL,
+         CONSTRAINT pk_col1 PRIMARY KEY (col1)
+  );
+#+END_SRC
+** Inserting rows
+You can only insert one row at a time. Multiple rows require multiple inserts
+#+BEGIN_SRC sql
+  INSERT INTO table (column1, column2)
+  VALUES (value1, value2)
+#+END_SRC
+** Adding Constraints
+*** ALTER TABLE
+Used when adding new constraints to an existing table.
+#+BEGIN_SRC sql
+  ALTER TABLE tabl
+  ADD FOREIGN KEY (col)
+  REFERENCES other_tabl(other_col)
+#+END_SRC
+*** CONSTRAINT
+Used when initially making a table and adding columns.
+#+BEGIN_SRC sql
+
+#+END_SRC
+** Serials
+After you have manually added rows that use serial, use this code to set the serial
+to the correct number.
+#+BEGIN_SRC sql
+  SELECT setval(pg_get_serial_sequence('table', 'column'), new_value)
+#+END_SRC
